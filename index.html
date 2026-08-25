@@ -178,7 +178,7 @@
       margin-bottom: 10px;
     }
 
-    /* ================= 3. پەڕی سەرەکی ================= */
+    /* ================= 3. پەڕەی سەرەکی ================= */
     #main-invitation {
       display: none;
       width: 100%;
@@ -221,22 +221,30 @@
     .c-bl { bottom: 16px; left: 16px; border-right: none; border-top: none; }
     .c-br { bottom: 16px; right: 16px; border-left: none; border-top: none; }
 
-    .music-btn {
+    .music-control-btn {
       position: fixed;
       top: 20px;
       left: 20px;
       z-index: 9999;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.08);
       color: var(--pistachio-soft);
       border: 1px solid var(--glass-inner-border);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
+      padding: 8px 16px;
+      border-radius: 30px;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
       cursor: pointer;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .music-control-btn:hover {
+      background: rgba(168, 213, 132, 0.2);
+      transform: scale(1.05);
     }
 
     .basmala {
@@ -478,11 +486,13 @@
 </head>
 <body>
 
-  <!-- دەتوانیت لە خوارەوە لەبەشی src لینکی گۆرانی یان دەنگی تایبەتی خۆت دابنێیت -->
-  <audio id="bg-music" src="https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3" loop preload="auto"></audio>
+  <!-- فایلی دەنگ (دەتوانیت لینکی موزیکەکەت بە فایلی خۆت بگۆڕیت ئەگەر ویستت) -->
+  <audio id="bg-music" src="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3?filename=celebration-123497.mp3" preload="auto" loop></audio>
 
-  <button id="sound-btn" class="music-btn" onclick="toggleAudio()" title="دەنگ">
-    <i class="fa-solid fa-volume-high"></i>
+  <!-- دوگمەی ڕاگرتن و لێدانەوەی موزیک -->
+  <button id="sound-btn" class="music-control-btn" onclick="toggleAudio()">
+    <i id="sound-icon" class="fa-solid fa-volume-high"></i>
+    <span id="sound-text">موزیک</span>
   </button>
 
   <!-- ================= 1. بەرگی پێشەکی ================= -->
@@ -500,7 +510,7 @@
     </div>
   </div>
 
-  <!-- ================= 2. نامەی کۆنی شاهانە ================= -->
+  <!-- ================= 2. نامەی کاتیی شاهانە ================= -->
   <div id="scroll-modal">
     <div class="parchment-sheet">
       <div class="parchment-title">📜 بانگهێشت نامەی ئاهەنگی دەرچوون</div>
@@ -510,7 +520,7 @@
     </div>
   </div>
 
-  <!-- ================= 3. پەڕی سەرەکی ================= -->
+  <!-- ================= 3. پەڕەی سەرەکی ================= -->
   <main id="main-invitation">
     <div class="luxury-glass-card">
       <div class="corner-accent c-tl"></div>
@@ -524,21 +534,21 @@
       <!-- 2. بۆکسی هێلکەیی شوشەیی -->
       <div class="oval-glass-container">
         <div class="oval-glass-box">
-          <div class="oval-glass-title">⚖️ ئاهەنگی دەرچونی خانمی پارێزەر ⚖️</div>
+          <div class="oval-glass-title">⚖️ ئاهەنگی دەرچونی خانمی یاساناس ⚖️</div>
         </div>
         <div class="direct-invitation-text">
           بە دڵێکی پڕ لە خۆشی و شادیەوە تۆی بەڕێز بانگهێشت دەکەم بۆ ئاهەنگەکەم و ئەم ڕۆژە تایبەتەت لەگەڵدا هاوبەشی پێدەکەم ، هیوادارم بە ئامادە بوونت ئاهەنگەکەم ڕازاوەتر بکەیت .
         </div>
       </div>
 
-      <!-- 3. بەشی وێنە بە شێوەی لاکێشەی گۆشە کەوانەیی -->
+      <!-- 3. وێنە -->
       <div class="rounded-image-wrapper">
         <div class="rounded-glass-image-box">
           <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop" alt="ئاهەنگی دەرچوون" />
         </div>
       </div>
 
-      <!-- 4. کالێندەر و کاتژمێری پێچەوانە -->
+      <!-- 4. کالێندەر و کاتژمێر -->
       <div class="glass-calendar">
         <div class="cal-head">کانوونی یەکەم (December) - 2027</div>
         <div class="cal-grid">
@@ -576,7 +586,7 @@
         </ul>
       </div>
 
-      <!-- 6. شوێن و گووگڵ ماپ -->
+      <!-- 6. شوێن و نەخشە -->
       <div style="text-align: center; margin: 25px 0;">
         <div style="font-size: 1.15rem; font-weight: 700; margin-bottom: 12px;">ناونیشانی ئاهەنگەکە : زانکۆی سلێمانی - سلێمانی</div>
         <div class="map-glass-wrapper">
@@ -596,37 +606,49 @@
       </div>
 
       <!-- 8. واژوو -->
-      <div class="lawyer-signature">🦋 خانمی پارێزەر 🦋</div>
+      <div class="lawyer-signature">🦋 خانمی یاساناس 🦋</div>
     </div>
   </main>
 
   <script>
-    const audio = document.getElementById('AUD-20260825-WA0001.aac.mp3');
-
-    function playCustomAudio() {
-      if (audio) {
-        audio.play().catch(error => {
-          console.log("Autoplay prevented:", error);
-        });
-      }
-    }
+    const musicPlayer = document.getElementById('bg-music');
+    const soundIcon = document.getElementById('sound-icon');
+    const soundText = document.getElementById('sound-text');
 
     function toggleAudio() {
-      if (!audio) return;
-      if (audio.paused) {
-        audio.play();
-        document.getElementById('sound-btn').innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+      if (!musicPlayer) return;
+      if (musicPlayer.paused) {
+        musicPlayer.play().then(() => {
+          soundIcon.className = 'fa-solid fa-volume-high';
+          soundText.innerText = 'موزیک';
+        }).catch(err => console.log('Playback error:', err));
       } else {
-        audio.pause();
-        document.getElementById('sound-btn').innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+        musicPlayer.pause();
+        soundIcon.className = 'fa-solid fa-volume-xmark';
+        soundText.innerText = 'وەستاوە';
       }
     }
 
     function unlockInvitation() {
+      // وەرگرتنی مۆڵەتی دەنگ لە وێبگەڕدا ڕاستەوخۆ لە کاتی کلیک
+      if (musicPlayer) {
+        musicPlayer.volume = 0.8;
+        musicPlayer.play().then(() => {
+          musicPlayer.pause();
+          musicPlayer.currentTime = 0;
+        }).catch(err => {
+          console.log('Audio permission prep:', err);
+        });
+      }
+
+      // شاردنەوەی بەرگی پێشەکی
       const cover = document.getElementById('cover-page');
       cover.style.opacity = '0';
-      setTimeout(() => { cover.style.display = 'none'; }, 700);
+      setTimeout(() => { 
+        cover.style.display = 'none'; 
+      }, 700);
 
+      // نیشاندانی نامەی کاتی بۆ ماوەی ٣ چرکە
       const modal = document.getElementById('scroll-modal');
       modal.style.display = 'flex';
 
@@ -643,20 +665,31 @@
             main.style.opacity = '1';
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            playCustomAudio();
+            // لێدانی خۆکاری موزیکەکە لەگەڵ دەرکەوتنی پەڕەی سەرەکی
+            if (musicPlayer) {
+              musicPlayer.play().then(() => {
+                soundIcon.className = 'fa-solid fa-volume-high';
+                soundText.innerText = 'موزیک';
+              }).catch(err => {
+                console.log('Autoplay blocked:', err);
+              });
+            }
 
-            confetti({
-              particleCount: 100,
-              spread: 80,
-              origin: { y: 0.6 },
-              colors: ['#a8d584', '#e6c894', '#ffffff', '#4e2e1e']
-            });
+            // تەقاندنی کۆنفێتی / ئاهەنگگێڕان
+            if (typeof confetti === 'function') {
+              confetti({
+                particleCount: 120,
+                spread: 85,
+                origin: { y: 0.6 },
+                colors: ['#a8d584', '#e6c894', '#ffffff', '#4e2e1e']
+              });
+            }
           }, 50);
         }, 600);
       }, 3000);
     }
 
-    // کاتژمێری پێچەوانە (10/12/2027)
+    // کاتژمێری پێچەوانە
     const targetDate = new Date('2027-12-10T15:30:00').getTime();
     setInterval(() => {
       const distance = targetDate - new Date().getTime();
