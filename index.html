@@ -17,7 +17,7 @@
       --pistachio-glow: rgba(168, 213, 132, 0.45);
       --chocolate-deep: #22120a;
       --chocolate-accent: #4e2e1e;
-      --deep-green-bg: #0b1509; /* سەوزی زۆر تۆخ */
+      --deep-green-bg: #0b1509;
       --glass-bg: rgba(255, 255, 255, 0.04);
       --glass-border: rgba(255, 255, 255, 0.1);
       --glass-inner-border: rgba(168, 213, 132, 0.28);
@@ -33,7 +33,6 @@
 
     body {
       font-family: 'Noto Kufi Arabic', sans-serif;
-      /* باگراوندی سەوزی زۆر تۆخی شاهانە */
       background: radial-gradient(circle at 50% 20%, #132410 0%, #0b1509 60%, #050a04 100%);
       color: #f2ede4;
       min-height: 100vh;
@@ -47,7 +46,6 @@
     #cover-page {
       position: fixed;
       inset: 0;
-      /* سەوزی زۆر تۆخ بە ڕووناکییەکی شوشەیی نەرم */
       background: radial-gradient(circle at center, #172e13 0%, #0d1a0b 70%, #060d05 100%);
       display: flex;
       flex-direction: column;
@@ -180,7 +178,7 @@
       margin-bottom: 10px;
     }
 
-    /* ================= 3. پەڕی سەرەکی (سەوزی زۆر تۆخ و شوشەیی) ================= */
+    /* ================= 3. پەڕی سەرەکی ================= */
     #main-invitation {
       display: none;
       width: 100%;
@@ -251,7 +249,6 @@
       opacity: 0.95;
     }
 
-    /* بۆکسی هێلکەیی شوشەیی لەسەرەوە */
     .oval-glass-container {
       text-align: center;
       margin-bottom: 25px;
@@ -274,7 +271,6 @@
       text-shadow: 0 0 15px var(--pistachio-glow);
     }
 
-    /* نوسراوی ڕاستەوخۆ بەبێ بۆکس */
     .direct-invitation-text {
       color: #e4decb;
       padding: 15px 10px 5px 10px;
@@ -284,7 +280,6 @@
       text-align: center;
     }
 
-    /* وێنەی لاکێشەی گۆشە کەوانەیی */
     .rounded-image-wrapper {
       display: flex;
       justify-content: center;
@@ -309,7 +304,6 @@
       display: block;
     }
 
-    /* کالێندەری شوشەیی */
     .glass-calendar {
       background: rgba(255, 255, 255, 0.95);
       color: #1a1a1a;
@@ -359,7 +353,6 @@
       border-radius: 50%;
     }
 
-    /* کاتژمێری پێچەوانە */
     .glass-countdown-wrap {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--glass-inner-border);
@@ -399,7 +392,6 @@
       margin-top: 2px;
     }
 
-    /* پلانی ئاهەنگەکە */
     .glass-section-card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--glass-border);
@@ -434,7 +426,6 @@
       font-weight: 500;
     }
 
-    /* نەخشە و دوگمەکان */
     .map-glass-wrapper {
       border-radius: 18px;
       overflow: hidden;
@@ -474,7 +465,6 @@
       box-shadow: 0 0 30px var(--pistachio-glow);
     }
 
-    /* واژووی درەوشاوەی کۆتایی */
     .lawyer-signature {
       text-align: center;
       font-family: 'Amiri', serif;
@@ -487,6 +477,9 @@
   </style>
 </head>
 <body>
+
+  <!-- دەتوانیت لە خوارەوە لەبەشی src لینکی گۆرانی یان دەنگی تایبەتی خۆت دابنێیت -->
+  <audio id="bg-music" src="https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3" loop preload="auto"></audio>
 
   <button id="sound-btn" class="music-btn" onclick="toggleAudio()" title="دەنگ">
     <i class="fa-solid fa-volume-high"></i>
@@ -533,7 +526,6 @@
         <div class="oval-glass-box">
           <div class="oval-glass-title">⚖️ ئاهەنگی دەرچونی خانمی پارێزەر ⚖️</div>
         </div>
-        <!-- دەقی بانگهێشتنامەکە ڕاستەوخۆ لەسەر تەختەکە -->
         <div class="direct-invitation-text">
           بە دڵێکی پڕ لە خۆشی و شادیەوە تۆی بەڕێز بانگهێشت دەکەم بۆ ئاهەنگەکەم و ئەم ڕۆژە تایبەتەت لەگەڵدا هاوبەشی پێدەکەم ، هیوادارم بە ئامادە بوونت ئاهەنگەکەم ڕازاوەتر بکەیت .
         </div>
@@ -609,91 +601,32 @@
   </main>
 
   <script>
-    let audioCtx = null;
-    let isPlaying = false;
-    let bgLoopTimer = null;
+    const audio = document.getElementById('AUD-20260825-WA0001.aac.mp3');
 
-    // ئاوازی شاهانەی ئاهەنگگێڕان (VIP Celebration Symphony)
-    function playCelebrationSymphony() {
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume() 
-      
-
-        const melody = [
-          { f: 523.25, d: 0.28 }, // C5
-          { f: 659.25, d: 0.28 }, // E5
-          { f: 783.99, d: 0.35 }, // G5
-          { f: 1046.50, d: 0.70 }, // C6
-          { f: 880.00, d: 0.30 }, // A5
-          { f: 1046.50, d: 0.85 }  // C6 Final
-        ];
-
-        let time = audioCtx.currentTime + 0.05;
-        melody.forEach(n => {
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(n.f, time);
-
-          gain.gain.setValueAtTime(0.001, time);
-          gain.gain.exponentialRampToValueAtTime(0.25, time + 0.04);
-          gain.gain.exponentialRampToValueAtTime(0.0001, time + n.d);
-
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start(time);
-          osc.stop(time + n.d);
-          time += n.d * 0.9;
+    function playCustomAudio() {
+      if (audio) {
+        audio.play().catch(error => {
+          console.log("Autoplay prevented:", error);
         });
-
-        // لێدانی چایمی ئارام لە باگراونددا بە بەردەوامی
-        clearInterval(bgLoopTimer);
-        bgLoopTimer = setInterval(() => {
-          if (isPlaying && audioCtx && audioCtx.state === 'running') {
-            const chords = [523.25, 659.25, 783.99];
-            chords.forEach((freq, idx) => {
-              const osc = audioCtx.createOscillator();
-              const gain = audioCtx.createGain();
-              osc.type = 'sine';
-              osc.frequency.value = freq;
-              const startT = audioCtx.currentTime + (idx * 0.15);
-              gain.gain.setValueAtTime(0.001, startT);
-              gain.gain.exponentialRampToValueAtTime(0.06, startT + 0.04);
-              gain.gain.exponentialRampToValueAtTime(0.0001, startT + 1.2);
-              osc.connect(gain);
-              gain.connect(audioCtx.destination);
-              osc.start(startT);
-              osc.stop(startT + 1.2);
-            });
-          }
-        }, 5000);
-
-        isPlaying = true;
-        document.getElementById('sound-btn').innerHTML = '<i class="fa-solid fa-volume-high"></i>';
-      } catch (e) {
-        console.log(e);
       }
     }
 
     function toggleAudio() {
-      if (isPlaying && audioCtx) {
-        audioCtx.suspend();
-        isPlaying = false;
-        clearInterval(bgLoopTimer);
-        document.getElementById('sound-btn').innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+      if (!audio) return;
+      if (audio.paused) {
+        audio.play();
+        document.getElementById('sound-btn').innerHTML = '<i class="fa-solid fa-volume-high"></i>';
       } else {
-        playCelebrationSymphony();
+        audio.pause();
+        document.getElementById('sound-btn').innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
       }
     }
 
     function unlockInvitation() {
-      // شاردنەوەی بەرگی پێشەکی
       const cover = document.getElementById('cover-page');
       cover.style.opacity = '0';
       setTimeout(() => { cover.style.display = 'none'; }, 700);
 
-      // دەرکەوتنی نامەی شاهانە بۆ ماوەی ٣ چرکە
       const modal = document.getElementById('scroll-modal');
       modal.style.display = 'flex';
 
@@ -710,10 +643,8 @@
             main.style.opacity = '1';
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // دەستپێکردنی ڕاستەوخۆی موزیک لەگەڵ دەرکەوتنی پەڕی سەرەکی
-            playCelebrationSymphony();
+            playCustomAudio();
 
-            // یاری ئاگرین
             confetti({
               particleCount: 100,
               spread: 80,
